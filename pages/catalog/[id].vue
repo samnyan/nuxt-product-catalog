@@ -22,6 +22,11 @@ const closePreview = () => {
 <template>
   <div class="p-4 max-w-7xl mx-auto box-border">
     <h1 class="text-3xl font-bold mb-6">{{ catalogData?.name }}</h1>
+    <div class="mb-6">
+      <div v-html="catalogData?.description">
+
+      </div>
+    </div>
     <table class="w-full border-collapse border border-gray-300">
       <thead>
       <tr>
@@ -30,6 +35,7 @@ const closePreview = () => {
         <th class="border border-solid border-gray-300 px-4 py-2 bg-gray-100 min-w-50">名称</th>
         <th class="border border-solid border-gray-300 px-4 py-2 bg-gray-100 min-w-18">价格</th>
         <th class="border border-solid border-gray-300 px-4 py-2 bg-gray-100 min-w-18">库存</th>
+        <th class="border border-solid border-gray-300 px-4 py-2 bg-gray-100 min-w-18">备注</th>
       </tr>
       </thead>
       <tbody>
@@ -47,6 +53,7 @@ const closePreview = () => {
         </td>
         <td class="border border-solid border-gray-300 px-4 py-2 font-bold text-red-5 text-right">{{ item.price?.toFixed(2) }} 元</td>
         <td class="border border-solid border-gray-300 px-4 py-2 text-center">{{ item.inventory > 0 ? item.inventory + ' 件' : '售罄' }}</td>
+        <td class="border border-solid border-gray-300 px-4 py-2">{{ item.remarks }}</td>
       </tr>
       </tbody>
     </table>

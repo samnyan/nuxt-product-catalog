@@ -5,6 +5,11 @@ export default defineNuxtConfig({
   modules: [
     '@unocss/nuxt',
   ],
+  nitro: {
+    prerender: {
+      autoSubfolderIndex: true
+    }
+  },
   runtimeConfig: {
     apiProductCatalogUrl: '/api/mock/catalog',
     apiProductCatalogIdKey: 'code',
