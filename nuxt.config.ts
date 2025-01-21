@@ -6,5 +6,7 @@ export default defineNuxtConfig({
     '@unocss/nuxt',
   ],
   runtimeConfig: {
+    apiProductCatalogUrl: '/api/mock/catalog',
+    apiProductCatalogIdKey: 'code',
   }
 })
