@@ -7,6 +7,10 @@ const { data: apiData } = await useFetch('/api/catalog?id=' + id)
 
 const catalogData = computed(() => apiData.value?.data)
 
+useHead({
+  title: catalogData.value?.name,
+})
+
 const imgPreview = ref<string>()
 const isPreviewVisible = ref(false)
 
@@ -25,17 +29,39 @@ const closePreview = () => {
     <div class="mb-6">
       <div v-html="catalogData?.description"></div>
     </div>
-    <table class="w-full border-collapse border border-gray-300">
+    <table class="w-full border-collapse border border-gray-300 sticky">
       <thead>
         <tr>
-          <th class="border border-solid border-gray-300 px-4 py-2 bg-gray-100 min-w-18">
+          <th
+            class="border border-solid border-gray-300 px-4 py-2 bg-gray-100 min-w-18 sticky-header"
+          >
             产品编号
           </th>
-          <th class="border border-solid border-gray-300 px-4 py-2 bg-gray-100 min-w-50">图片</th>
-          <th class="border border-solid border-gray-300 px-4 py-2 bg-gray-100 min-w-50">名称</th>
-          <th class="border border-solid border-gray-300 px-4 py-2 bg-gray-100 min-w-18">价格</th>
-          <th class="border border-solid border-gray-300 px-4 py-2 bg-gray-100 min-w-18">库存</th>
-          <th class="border border-solid border-gray-300 px-4 py-2 bg-gray-100 min-w-18">备注</th>
+          <th
+            class="border border-solid border-gray-300 px-4 py-2 bg-gray-100 min-w-50 sticky-header"
+          >
+            图片
+          </th>
+          <th
+            class="border border-solid border-gray-300 px-4 py-2 bg-gray-100 min-w-50 sticky-header"
+          >
+            名称
+          </th>
+          <th
+            class="border border-solid border-gray-300 px-4 py-2 bg-gray-100 min-w-20 sticky-header"
+          >
+            价格
+          </th>
+          <th
+            class="border border-solid border-gray-300 px-4 py-2 bg-gray-100 min-w-18 sticky-header"
+          >
+            库存
+          </th>
+          <th
+            class="border border-solid border-gray-300 px-4 py-2 bg-gray-100 min-w-18 sticky-header"
+          >
+            备注
+          </th>
         </tr>
       </thead>
       <tbody>
@@ -44,17 +70,17 @@ const closePreview = () => {
           <td class="border border-solid border-gray-300 px-4 py-2">
             <img
               v-if="item.imageList[0]"
-              :src="$filters.ossResize(item.imageList[0], OSS_SIZE.SMALL)"
+              :src="$filters.ossResize(item.imageList[0], OSS_SIZE.NORMAL)"
               alt="Product Image"
-              class="w-24 h-24 object-cover rounded-lg mr-1"
+              class="w-24 h-24 object-cover rounded-lg mr-1 cursor-pointer"
               loading="lazy"
               @click="onImageClick(item.imageList[0])"
             />
             <img
               v-if="item.imageList[1]"
-              :src="$filters.ossResize(item.imageList[1], OSS_SIZE.SMALL)"
+              :src="$filters.ossResize(item.imageList[1], OSS_SIZE.NORMAL)"
               alt="Product Image"
-              class="w-24 h-24 object-cover rounded-lg"
+              class="w-24 h-24 object-cover rounded-lg cursor-pointer"
               loading="lazy"
               @click="onImageClick(item.imageList[1])"
             />
@@ -111,4 +137,12 @@ const closePreview = () => {
   </div>
 </template>
 
-<style scoped></style>
+<style scoped>
+th.sticky-header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  /*To not have transparent background.
+  background-color: white;*/
+}
+</style>
