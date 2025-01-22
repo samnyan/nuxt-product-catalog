@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { $filters, OSS_SIZE } from '~/utils/filters'
+
 const { id } = useRoute().params
 
 const { data: apiData } = await useFetch('/api/catalog?id=' + id)
@@ -42,16 +44,18 @@ const closePreview = () => {
           <td class="border border-solid border-gray-300 px-4 py-2">
             <img
               v-if="item.imageList[0]"
-              :src="item.imageList[0]"
+              :src="$filters.ossResize(item.imageList[0], OSS_SIZE.SMALL)"
               alt="Product Image"
               class="w-24 h-24 object-cover rounded-lg mr-1"
+              loading="lazy"
               @click="onImageClick(item.imageList[0])"
             />
             <img
               v-if="item.imageList[1]"
-              :src="item.imageList[1]"
+              :src="$filters.ossResize(item.imageList[1], OSS_SIZE.SMALL)"
               alt="Product Image"
               class="w-24 h-24 object-cover rounded-lg"
+              loading="lazy"
               @click="onImageClick(item.imageList[1])"
             />
           </td>
@@ -65,7 +69,7 @@ const closePreview = () => {
             {{ item.price?.toFixed(2) }} 元
           </td>
           <td class="border border-solid border-gray-300 px-4 py-2 text-center">
-            {{ item.inventory > 0 ? item.inventory + ' 件' : '售罄' }}
+            {{ item.inventory > 0 ? item.inventory : '售罄' }}
           </td>
           <td class="border border-solid border-gray-300 px-4 py-2">{{ item.remarks }}</td>
         </tr>
